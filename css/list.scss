@@ -130,7 +130,13 @@ footer{
 	*{
 		float: left;
 	}
+	.task-link{
+		position: relative;
+		top: .3em;
+	}
 }
+
+
 
 .button {
 	width: 10em;

@@ -37,9 +37,9 @@
             <div class="taskList" data-bind="foreach: tasks" data-type="expand-in">
                 <div class="task mb-inner active">
                     <input type="checkbox" data-bind="checked: complete"/>
+                    <a class="task-link" data-bind="visible: isUrl, attr: {'href' : name}" data-icon="&#x39;" target="_blank"></a>
                     <input type="text" data-bind="value: name, store: name">
                     <a href="#" class="removeTask" data-bind="click: $root.removeTask" data-icon="&#x36;"></a>
-                    
                 </div>
             </div>
         </article>

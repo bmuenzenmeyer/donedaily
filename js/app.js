@@ -61,21 +61,21 @@ if (typeof window.localStorage == 'undefined' || typeof window.sessionStorage ==
   var data = getData();
   
   return {
-  	length: 0,
-  	clear: function () {
-  		data = {};
-  		this.length = 0;
-  		clearData();
-  	},
-  	getItem: function (key) {
-  		return data[key] === undefined ? null : data[key];
-  	},
-  	key: function (i) {
+	length: 0,
+	clear: function () {
+		data = {};
+		this.length = 0;
+		clearData();
+	},
+	getItem: function (key) {
+		return data[key] === undefined ? null : data[key];
+	},
+	key: function (i) {
 	  // not perfect, but works
 	  var ctr = 0;
 	  for (var k in data) {
-	  	if (ctr == i) return k;
-	  	else ctr++;
+		if (ctr == i) return k;
+		else ctr++;
 	  }
 	  return null;
 	},
@@ -118,6 +118,19 @@ function Task(id, name, complete, completeYesterday){
 	self.name = ko.observable(name);
 	self.complete = ko.observable(complete);
 	self.completeYesterday = ko.observable(completeYesterday);
+
+	//http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-an-url
+	//todo: test this
+	function validURL(str) {
+	  var pattern = new RegExp('(http|ftp|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?');
+	  if(!pattern.test(str)) {
+		return false;
+	  } else {
+		return true;
+	  }
+	}
+
+	self.isUrl = ko.computed(function(){return validURL(self.name());});
 
 	self.toJSON = function(){
 		return{
@@ -210,22 +223,6 @@ function AppModel(taskList, listId){
 	function createId(){  
 		return Math.random() * (1000000000000000 - 1) + 1;  
 	} 
-
-	//http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-an-url
-	function validURL(str) {
-	  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-		'((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-		'((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-		'(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-		'(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-		'(\#[-a-z\d_]*)?$','i'); // fragment locater
-	  if(!pattern.test(str)) {
-	  	alert("Please enter a valid URL.");
-	  	return false;
-	  } else {
-	  	return true;
-	  }
-	}
 
 	self.addTask = function(){
 		self.tasks.push(new Task(createId(), '', false, false));
