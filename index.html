@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+    <title>Done Daily</title>
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="stylesheet" href="css/list.min.css">
+        <!--[if lt IE 9]>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+        <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+        <script>
+        WebFont.load({
+            google: {
+                families: [ 'Source+Sans+Pro']
+            }
+        });
+        </script>
+    </head>
+    <body>
+        <article>
+            <div class="banner">&mdash;Compare yourself to you yesterday&mdash;</div>
+            <header>Done Daily</header>
+            <div class="button inline" data-icon="&#x31;" data-bind="click: addTask">
+                Do Something
+            </div>
+            <div data-bind="visible: tasks().length === 0">
+                <p>Done Daily is a small web app that keeps you honest about all those things you need or want to do every day. This uses <a rel="external" href="http://diveintohtml5.info/storage.html" title="Learn about local storage" data-icon="&#x39;">local storage</a>, so there are no user accounts, and no syncing across devices. Just create some lists and return tomorrow for contextual, habitual to-do conquering. <em>Pro-tip:</em> Make this your home-page.</p>
+            </div>
+            <br />
+            <h5 class="inline" data-bind="text: tasksYesterday, visible: tasks().length !== 0"></h5> &mdash;
+            <h5 class="inline" data-bind="text: tasksComplete, visible: tasks().length !== 0"></h5> <span data-bind="visible: tasks().length !== 0 && allComplete" data-icon="&#x34;"></span>
+            
+            <div class="taskList" data-bind="foreach: tasks" data-type="expand-in">
+                <div class="task mb-inner active">
+                    <input type="checkbox" data-bind="checked: complete"/>
+                    <input type="text" data-bind="value: name, store: name">
+                    <a href="#" class="removeTask" data-bind="click: $root.removeTask" data-icon="&#x36;"></a>
+                    
+                </div>
+            </div>
+        </article>
+        <footer>
+<!--             <span class="save" data-icon="&#x32;;" title="Initialize Done Daily with provided key"></span>
+            <span class="key" data-icon="&#x21;" title="Change this key if you want to blow away your current list. You will seed local storage with a new key."></span> <input class="keyControl input" type="text" value="donedaily"> -->
+            <div>
+                <a href="https://twitter.com/bmuenzenmeyer" rel="me" data-icon="&#x37;" title="follow me on twitter">@bmuenzenmeyer</a>
+            </div>
+        </footer>
+        <script src="js/yepnope.1.5.4-min.js"></script>
+        <script>
+        yepnope([{
+            load: ['http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'js/knockout-2.1.0.js'],
+            complete: function () {
+                if (!window.jQuery){
+                    yepnope('js/jquery-1.7.1.min.js');
+                }
+            }
+        }, {
+            load: 'js/app.js',
+            complete: function (){
+                jQuery(function(){
+                    App.init($('.keyControl.input').val());
+                });
+            }
+        }]);
+        </script>
+        <!--<script>
+        //     var _gaq=[['_setAccount','UA-29672680-1'],['_trackPageview']];
+        //     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        //         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        //         s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>-->
+</body>
+</html>
