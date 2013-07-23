@@ -254,7 +254,6 @@ function AppModel(taskList, listId){
 				var tasks = JSON.parse(taskList);
 				_model = new AppModel(tasks, listId);
 				ko.applyBindings(_model);
-				//$('.key').on('click', function(){ $('.keyControl.input').toggleClass('toggled')});
 			},
 			store: function(){
 				_model.store();
@@ -264,6 +263,10 @@ function AppModel(taskList, listId){
 			},
 			newDate: function(){
 				return new Date();
+			},
+			addTask: function(){
+				_model.addTask();
+				$('.task > input').last().focus();
 			}
 		};
 	}
