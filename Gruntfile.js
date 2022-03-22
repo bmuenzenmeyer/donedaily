@@ -33,22 +33,11 @@ module.exports = function (grunt) {
         },
       },
     },
-    watch: {
-      css: {
-        files: ["css/*.scss"],
-        tasks: ["sass", "cssmin"],
-      },
-      js: {
-        files: ["js/app.js"],
-        tasks: ["uglify"],
-      },
-    },
   })
 
   grunt.loadNpmTasks("grunt-sass")
   grunt.loadNpmTasks("grunt-contrib-cssmin")
   grunt.loadNpmTasks("grunt-contrib-uglify")
-  grunt.loadNpmTasks("grunt-contrib-watch")
 
-  grunt.registerTask("default", ["sass", "cssmin", "uglify", "watch"])
+  grunt.registerTask("default", ["sass", "cssmin", "uglify"])
 }
